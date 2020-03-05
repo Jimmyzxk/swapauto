@@ -1,4 +1,15 @@
 #!/bin/bash
+setup_swap(){
+    isSwapOn=$(swapon -s | tail -1)
+
+    if [[ ${isSwapOn} == "" ]]; then
+        add_swap
+    else
+        del_swap
+        add_swap
+    fi
+    echo "Setup swap complete! Check output to confirm everything is good."
+}
 del_swap(){
 echo del swap...
 backupTime=$(date +%y-%m-%d--%H-%M-%S)
@@ -9,7 +20,6 @@ cp /etc/fstab /etc/fstab.$backupTime
 sed -i '/swap/d' /etc/fstab
 rm -rf "/$swapSpace"
 }
-
 add_swap(){
 echo add swap...
 dd if=/dev/zero of=/swapfile bs=1024k count=1000
