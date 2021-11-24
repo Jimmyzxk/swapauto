@@ -22,7 +22,7 @@ rm -rf "/$swapSpace"
 }
 add_swap(){
 echo add swap...
-dd if=/dev/zero of=/swapfile bs=1024k count=1000
+dd if=/dev/zero of=/swapfile bs=1024k count=128
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
